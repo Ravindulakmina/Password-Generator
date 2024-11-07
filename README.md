@@ -25,7 +25,7 @@ Follow these instructions to set up and use the password generator.
 
 1. Clone the repo:
     ```bash
-    git clone https://github.com/your-username/password-generator.git
+    git clone https://github.com/Ravindulakmina/Password-Generator.git
     ```
 2. Navigate to the project folder:
     ```bash
@@ -71,7 +71,7 @@ Distributed under the MIT License. See `LICENSE` for more information.
 ## Contact 📞
 
 - **Name**: Ravindu Lakmina
-- **Project Link**: [GitHub Repository](https://github.com/your-username/password-generator)
+- **Project Link**: [GitHub Repository](https://github.com/Ravindulakmina/Password-Generator)
 
 ---
 
