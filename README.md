@@ -2,7 +2,7 @@
 
 A simple, flexible password generator to create strong, secure passwords. This project is designed to help users generate random, high-quality passwords for various applications, enhancing online security and ease of access. 
 
-![Password Generator Demo](https://res.cloudinary.com/dzdxnfmal/image/upload/v1731141355/my/nu04xdwgoywczvsmupea.gif)
+![Password Generator Demo](https://res.cloudinary.com/dzdxnfmal/image/upload/v1731141738/my/rwwdij2fpayxbxr2hvy7.gif)
 
 ## Features 🌟
 
