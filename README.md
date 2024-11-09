@@ -2,7 +2,7 @@
 
 A simple, flexible password generator to create strong, secure passwords. This project is designed to help users generate random, high-quality passwords for various applications, enhancing online security and ease of access. 
 
-![Password Generator Demo](link-to-demo-gif-or-image)
+![Password Generator Demo](https://i.ibb.co/DR6sHRV/31079202-kerfin7-nea-2794.jpg)
 
 ## Features 🌟
 
@@ -36,10 +36,10 @@ Follow these instructions to set up and use the password generator.
      ```bash
      open index.html
      ```
-   - If using Node.js:
+   <!-- - If using Node.js:
      ```bash
      node app.js
-     ```
+     ``` -->
 
 ## Usage 🛠️
 
