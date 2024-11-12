@@ -1,3 +1,10 @@
+.poppins-extralight {
+    font-family: "Poppins", serif;
+    font-weight: 200;
+    font-style: normal;
+  }
+  
+
 body {
     font-family: Arial, sans-serif;
     background-color: #f4f4f4;
