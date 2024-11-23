@@ -53,7 +53,7 @@ Follow these instructions to set up and use the password generator.
 - [ ] Add multi-language support
 - [ ] Implement user interface themes (light/dark mode)
 - [ ] Add a password strength indicator
-- [ ] Add browser extension support
+- [ ] Add browser extension support [Browser extension Repository](https://github.com/Ravindulakmina/Password-Generator-Extension)
 
 ## Contributing 🤝
 
