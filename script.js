@@ -19,15 +19,46 @@ async function checkPasswordHIBP(password) {
         const data = await response.text();
         const isCompromised = data.includes(suffix.toUpperCase());
 
-        return isCompromised ? "Password has been compromised!" : "Password is safe!";
+        return isCompromised ? "HIBP Status - Password has been compromised!" : "HIBP Status - Password is safe!";
     } catch (error) {
         return "Error checking password security";
     }
 }
 
-// Modified generatePassword function to check with HIBP
+// Function to evaluate password strength
+function evaluateStrength(password) {
+    const criteria = [
+        /.{8,}/, // Minimum 8 characters
+        /[A-Z]/, // At least one uppercase letter
+        /[a-z]/, // At least one lowercase letter
+        /[0-9]/, // At least one digit
+        /[!@#$%^&*()_+~`|}{[\]:;?><,./-]/ // At least one special character
+    ];
+    const strength = criteria.reduce((acc, regex) => (regex.test(password) ? acc + 1 : acc), 0);
+
+    let feedback = '';
+    switch (strength) {
+        case 5:
+            feedback = 'Very Strong';
+            break;
+        case 4:
+            feedback = 'Strong';
+            break;
+        case 3:
+            feedback = 'Medium';
+            break;
+        case 2:
+            feedback = 'Weak';
+            break;
+        default:
+            feedback = 'Very Weak';
+    }
+    document.getElementById('password-strength').innerText = `Password Strength: ${feedback}`;
+}
+
+// Function to generate a password
 async function generatePassword() {
-    const length = document.getElementById('password-length').value;
+    const length = document.getElementById('password-length').value || 12; // Default to 12 if empty
     const includeUppercase = document.getElementById('include-uppercase').checked;
     const includeNumbers = document.getElementById('include-numbers').checked;
     const includeSymbols = document.getElementById('include-symbols').checked;
@@ -48,11 +79,15 @@ async function generatePassword() {
         password += characters[randomIndex];
     }
 
+    // Set the generated password in the input field
     document.getElementById('password').value = password;
 
     // Check if password is compromised and display the result
     const securityStatus = await checkPasswordHIBP(password);
     document.getElementById('password-security').innerText = securityStatus;
+
+    // Evaluate and display password strength
+    evaluateStrength(password);
 }
 
 // Function to copy the password to the clipboard
@@ -71,6 +106,7 @@ window.addEventListener('load', () => {
     loadingScreen.style.display = 'none';
     mainContent.style.display = 'block';
 });
+
 
 
 
