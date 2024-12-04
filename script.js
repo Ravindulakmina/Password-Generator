@@ -110,13 +110,19 @@ window.addEventListener('load', () => {
 
 
 function savePassword() {
-    alert("Ok")
     const password = document.getElementById('password').value;
+
+    if (!password) {
+        swal("No password to save! Please generate a password first.");
+        return; // Exit the function if the password is empty
+    }
+
     const blob = new Blob([password], { type: 'text/plain' });
     const link = document.createElement('a');
     link.href = URL.createObjectURL(blob);
     link.download = 'password.txt';
     link.click();
 }
+
 
 
