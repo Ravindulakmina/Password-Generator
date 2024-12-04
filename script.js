@@ -109,5 +109,14 @@ window.addEventListener('load', () => {
 
 
 
+function savePassword() {
+    alert("Ok")
+    const password = document.getElementById('password').value;
+    const blob = new Blob([password], { type: 'text/plain' });
+    const link = document.createElement('a');
+    link.href = URL.createObjectURL(blob);
+    link.download = 'password.txt';
+    link.click();
+}
 
 
