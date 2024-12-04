@@ -92,9 +92,16 @@ async function generatePassword() {
 
 // Function to copy the password to the clipboard
 function copyPassword() {
-    const password = document.getElementById('password');
-    password.select();
-    password.setSelectionRange(0, 99999); // For mobile devices
+    const passwordElement = document.getElementById('password');
+    const password = passwordElement.value;
+
+    if (!password) {
+        swal("No password to copy! Please generate a password first.");
+        return; // Exit if no password is present
+    }
+
+    passwordElement.select();
+    passwordElement.setSelectionRange(0, 99999); // For mobile devices
     document.execCommand('copy');
     swal("Password copied to clipboard!");
 }
