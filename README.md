@@ -18,7 +18,7 @@ Follow these instructions to set up and use the password generator.
 
 ### Prerequisites
 
-- **Node.js** (for running any installation if required)
+
 - **Git** (for cloning the repository)
 
 ### Installation
