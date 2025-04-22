@@ -58,6 +58,7 @@ function evaluateStrength(password) {
 
 // Function to generate a password
 async function generatePassword() {
+    
     const length = document.getElementById('password-length').value || 12; // Default to 12 if empty
     const includeUppercase = document.getElementById('include-uppercase').checked;
     const includeNumbers = document.getElementById('include-numbers').checked;
@@ -79,8 +80,8 @@ async function generatePassword() {
         password += characters[randomIndex];
     }
 
-    // Set the generated password in the input field
-    document.getElementById('password').value = password;
+    // Set the generated password in the p 
+    document.getElementById('password').innerText = password;
 
     // Check if password is compromised and display the result
     const securityStatus = await checkPasswordHIBP(password);
@@ -93,18 +94,24 @@ async function generatePassword() {
 // Function to copy the password to the clipboard
 function copyPassword() {
     const passwordElement = document.getElementById('password');
-    const password = passwordElement.value;
-
+    const password = passwordElement.innerText;
+  
     if (!password) {
-        swal("No password to copy! Please generate a password first.");
-        return; // Exit if no password is present
+      swal("No password to copy! Please generate a password first.");
+      return;
     }
-
-    passwordElement.select();
-    passwordElement.setSelectionRange(0, 99999); // For mobile devices
-    document.execCommand('copy');
-    swal("Password copied to clipboard!");
-}
+  
+    navigator.clipboard.writeText(password)
+      .then(() => {
+        swal("Password copied to clipboard!");
+      })
+      .catch(err => {
+        console.error("Failed to copy password: ", err);
+        swal("Something went wrong while copying.");
+      });
+  }
+  
+  
 
 // Display content after loading
 window.addEventListener('load', () => {
@@ -115,21 +122,51 @@ window.addEventListener('load', () => {
 });
 
 
-
+//password save function and download
 function savePassword() {
-    const password = document.getElementById('password').value;
-
+    const password = document.getElementById('password').innerText;
+  
     if (!password) {
-        swal("No password to save! Please generate a password first.");
-        return; // Exit the function if the password is empty
+      swal("No password to save! Please generate a password first.");
+      return;
     }
-
+  
+    // Suggest default name with date + time
+    const now = new Date();
+    const date = now.toISOString().split('T')[0]; // "2025-04-22"
+    const time = now.toTimeString().split(' ')[0].replace(/:/g, '-'); // "14-35-22"
+    const defaultName = `password-${date}_${time}`;
+  
+    // Prompt user for custom file name
+    let fileName = prompt("Enter file name:", defaultName);
+    if (!fileName) {
+      swal("File save cancelled.");
+      return;
+    }
+  
+    // Ensure .txt extension
+    if (!fileName.endsWith(".txt")) {
+      fileName += ".txt";
+    }
+  
     const blob = new Blob([password], { type: 'text/plain' });
     const link = document.createElement('a');
     link.href = URL.createObjectURL(blob);
-    link.download = 'password.txt';
+    link.download = fileName;
     link.click();
-}
+  }
+  
 
 
 
+// passworl length live counter
+const rangeInput = document.getElementById("password-length");
+  const rangeValue = document.getElementById("range-value");
+
+  // Initial set
+  rangeValue.innerText = rangeInput.value;
+
+  // Update on input change
+  rangeInput.addEventListener("input", function () {
+    rangeValue.innerText = this.value;
+  });
