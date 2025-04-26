@@ -56,40 +56,57 @@ function evaluateStrength(password) {
     document.getElementById('password-strength').innerText = `Password Strength: ${feedback}`;
 }
 
-// Function to generate a password
+
+
+
 async function generatePassword() {
-    
-    const length = document.getElementById('password-length').value || 12; // Default to 12 if empty
-    const includeUppercase = document.getElementById('include-uppercase').checked;
-    const includeNumbers = document.getElementById('include-numbers').checked;
-    const includeSymbols = document.getElementById('include-symbols').checked;
+  const length = parseInt(document.getElementById('password-length').value) || 12;
+  const includeUppercase = document.getElementById('include-uppercase').checked;
+  const includeNumbers = document.getElementById('include-numbers').checked;
+  const includeSymbols = document.getElementById('include-symbols').checked;
 
-    const lowercase = 'abcdefghijklmnopqrstuvwxyz';
-    const uppercase = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-    const numbers = '0123456789';
-    const symbols = '!@#$%^&*()_+~`|}{[]:;?><,./-=';
+  const lowercase = 'abcdefghijklmnopqrstuvwxyz';
+  const uppercase = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+  const numbers = '0123456789';
+  const symbols = '!@#$%^&*()_+~`|}{[]:;?><,./-=';
 
-    let characters = lowercase;
-    if (includeUppercase) characters += uppercase;
-    if (includeNumbers) characters += numbers;
-    if (includeSymbols) characters += symbols;
+  let allChars = lowercase;
+  let guaranteedChars = [];
 
-    let password = '';
-    for (let i = 0; i < length; i++) {
-        const randomIndex = Math.floor(Math.random() * characters.length);
-        password += characters[randomIndex];
-    }
+  if (includeUppercase) {
+      allChars += uppercase;
+      guaranteedChars.push(uppercase[Math.floor(Math.random() * uppercase.length)]);
+  }
 
-    // Set the generated password in the p 
-    document.getElementById('password').innerText = password;
+  if (includeNumbers) {
+      allChars += numbers;
+      guaranteedChars.push(numbers[Math.floor(Math.random() * numbers.length)]);
+  }
 
-    // Check if password is compromised and display the result
-    const securityStatus = await checkPasswordHIBP(password);
-    document.getElementById('password-security').innerText = securityStatus;
+  if (includeSymbols) {
+      allChars += symbols;
+      guaranteedChars.push(symbols[Math.floor(Math.random() * symbols.length)]);
+  }
 
-    // Evaluate and display password strength
-    evaluateStrength(password);
+  // Always add at least one lowercase character
+  guaranteedChars.push(lowercase[Math.floor(Math.random() * lowercase.length)]);
+
+  // Fill the rest of the password
+  let password = guaranteedChars.join('');
+  for (let i = guaranteedChars.length; i < length; i++) {
+      password += allChars[Math.floor(Math.random() * allChars.length)];
+  }
+
+  // Shuffle the final password
+  password = password.split('').sort(() => Math.random() - 0.5).join('');
+
+  document.getElementById('password').innerText = password;
+  const securityStatus = await checkPasswordHIBP(password);
+  document.getElementById('password-security').innerText = securityStatus;
+
+  evaluateStrength(password);
 }
+
 
 // Function to copy the password to the clipboard
 function copyPassword() {
