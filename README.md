@@ -1,4 +1,4 @@
-# Password Generator 🔒
+# Password Generator 2026/nov/update 🔒
 
 A simple, flexible password generator to create strong, secure passwords. This project is designed to help users generate random, high-quality passwords for various applications, enhancing online security and ease of access. 
 
